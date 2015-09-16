@@ -5,6 +5,10 @@ public class Event {
     private long id;
     private String type;
 
+    public Event(String type) {
+        this.type = type;
+    }
+
     public long getId() {
         return id;
     }

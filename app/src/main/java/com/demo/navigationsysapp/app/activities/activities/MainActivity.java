@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import com.demo.navigationsysapp.app.R;
+import com.demo.navigationsysapp.app.activities.adapter.EventAdapter;
 import com.demo.navigationsysapp.app.activities.adapter.UserAdapter;
+import com.demo.navigationsysapp.app.activities.pojo.Event;
 import com.demo.navigationsysapp.app.activities.pojo.User;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +41,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                URL url = new URL("http://androiddocs.ru/api/friends.json");
+                URL url = new URL("https://api.github.com/events");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -68,32 +70,19 @@ public class MainActivity extends ActionBarActivity {
             super.onPostExecute(strJson);
             Log.d(LOG_TAG, strJson);
 
-            JSONObject dataJsonObj = null;
-            String secondName = "";
-
             try {
-                dataJsonObj = new JSONObject(strJson);
-                JSONArray friends = dataJsonObj.getJSONArray("friends");
-                JSONObject secondFriend = friends.getJSONObject(1);
-                secondName = secondFriend.getString("name");
-                Log.d(LOG_TAG, "Второе имя: " + secondName);
+                JSONArray eventsJSON = new JSONArray(strJson);
 
-                List<User> users = new ArrayList<User>();
-                for (int i = 0; i < friends.length(); i++) {
-                    JSONObject friend = friends.getJSONObject(i);
-                    JSONObject contacts = friend.getJSONObject("contacts");
-                    User user = new User(friend.getInt("id"),friend.getString("name"));
-                    String phone = contacts.getString("mobile");
-                    String email = contacts.getString("email");
-                    String skype = contacts.getString("skype");
-                    Log.d(LOG_TAG, "phone: " + phone);
-                    Log.d(LOG_TAG, "email: " + email);
-                    Log.d(LOG_TAG, "skype: " + skype);
-                    users.add(user);
+                List<Event> events = new ArrayList<Event>();
+                for (int i = 0; i < eventsJSON.length(); i++) {
+                    JSONObject eventJSON = eventsJSON.getJSONObject(i);
+                    Event event = new Event(eventJSON.getString("type"));
+//                    Log.d(LOG_TAG, "type: " + event.getType());
+                    events.add(event);
                 }
                 listView = (ListView) findViewById(R.id.listView);
-                UserAdapter userAdapter = new UserAdapter(getApplication(), users);
-                listView.setAdapter(userAdapter);
+                EventAdapter eventAdapter = new EventAdapter(getApplication(), events);
+                listView.setAdapter(eventAdapter);
 
 
             } catch (JSONException e) {
