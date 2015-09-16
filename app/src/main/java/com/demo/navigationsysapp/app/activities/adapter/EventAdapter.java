@@ -9,27 +9,26 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.demo.navigationsysapp.app.R;
 import com.demo.navigationsysapp.app.activities.pojo.Event;
-import com.demo.navigationsysapp.app.activities.pojo.User;
 
 import java.util.List;
 
-public class UserAdapter extends BaseAdapter{
-    private List<User> users;
+public class EventAdapter  extends BaseAdapter {
+    private List<Event> events;
     private LayoutInflater layoutInflater;
 
-    public UserAdapter(Context context, List<User> users) {
-        this.users = users;
+    public EventAdapter(Context context, List<Event> events) {
+        this.events = events;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return users.size();
+        return events.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return users.get(position);
+        return events.get(position);
     }
 
     @Override
@@ -43,13 +42,13 @@ public class UserAdapter extends BaseAdapter{
         if(view == null){
             view = layoutInflater.inflate(R.layout.item_layout,parent,false);
         }
-        User user = getUser(position);
+        Event event = getEvent(position);
         TextView textView = (TextView) view.findViewById(R.id.textView);
-        textView.setText(user.getName());
+        textView.setText(event.getType());
         return view;
     }
 
-    private User getUser(int position){
-        return (User) getItem(position);
+    private Event getEvent(int position){
+        return (Event) getItem(position);
     }
 }

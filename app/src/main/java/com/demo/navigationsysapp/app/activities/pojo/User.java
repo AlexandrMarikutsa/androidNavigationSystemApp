@@ -4,8 +4,14 @@ package com.demo.navigationsysapp.app.activities.pojo;
 public class User {
     private long id;
     private String name;
+    private String lastName;
 
     public User() {
+    }
+
+    public User(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
     }
 
     public User(long id, String name) {
@@ -27,5 +33,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

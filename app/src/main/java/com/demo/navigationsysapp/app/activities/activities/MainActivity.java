@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import com.demo.navigationsysapp.app.R;
+import com.demo.navigationsysapp.app.activities.adapter.EventAdapter;
+import com.demo.navigationsysapp.app.activities.adapter.ListViewAdapter;
 import com.demo.navigationsysapp.app.activities.adapter.UserAdapter;
+import com.demo.navigationsysapp.app.activities.pojo.Event;
 import com.demo.navigationsysapp.app.activities.pojo.User;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +42,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected String doInBackground(Void... params) {
             try {
-                URL url = new URL("http://androiddocs.ru/api/friends.json");
+                URL url = new URL("http://demo.codeofaninja.com/tutorials/json-example-with-php/index.php");
 
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -66,34 +69,35 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(String strJson) {
             super.onPostExecute(strJson);
-            Log.d(LOG_TAG, strJson);
+            Log.d(LOG_TAG,"-------  THIS IS HOLE JSON !!! ----------" + strJson);
 
             JSONObject dataJsonObj = null;
             String secondName = "";
 
             try {
                 dataJsonObj = new JSONObject(strJson);
-                JSONArray friends = dataJsonObj.getJSONArray("friends");
-                JSONObject secondFriend = friends.getJSONObject(1);
-                secondName = secondFriend.getString("name");
-                Log.d(LOG_TAG, "Второе имя: " + secondName);
+                JSONArray usersJSON = dataJsonObj.getJSONArray("Users");
+//                JSONObject secondFriend = friends.getJSONObject(1);
+//                secondName = secondFriend.getString("name");
+//                Log.d(LOG_TAG, "Второе имя: " + secondName);
 
+//                List<Event> events = new ArrayList<Event>();
                 List<User> users = new ArrayList<User>();
-                for (int i = 0; i < friends.length(); i++) {
-                    JSONObject friend = friends.getJSONObject(i);
-                    JSONObject contacts = friend.getJSONObject("contacts");
-                    User user = new User(friend.getInt("id"),friend.getString("name"));
-                    String phone = contacts.getString("mobile");
-                    String email = contacts.getString("email");
-                    String skype = contacts.getString("skype");
-                    Log.d(LOG_TAG, "phone: " + phone);
-                    Log.d(LOG_TAG, "email: " + email);
-                    Log.d(LOG_TAG, "skype: " + skype);
+                for (int i = 0; i < usersJSON.length(); i++) {
+                    JSONObject userJSON = usersJSON.getJSONObject(i);
+                    User user = new User(userJSON.getString("firstname"),userJSON.getString("lastname"));
+//                    Long id = event.getId();
+//                    String type = event.getType();
+//                    Log.d(LOG_TAG, "id: " + id.toString());
+                    Log.d(LOG_TAG, "user name: " + user.getName());
+                    Log.d(LOG_TAG, "user lastname: " + user.getLastName());
                     users.add(user);
                 }
                 listView = (ListView) findViewById(R.id.listView);
-                UserAdapter userAdapter = new UserAdapter(getApplication(), users);
-                listView.setAdapter(userAdapter);
+//                EventAdapter eventAdapter = new EventAdapter(getApplication(), events);
+//                UserAdapter userAdapter = new UserAdapter(getApplication(), users);
+                ListViewAdapter listViewAdapter = new ListViewAdapter(getApplication(), users);
+                listView.setAdapter(listViewAdapter);
 
 
             } catch (JSONException e) {

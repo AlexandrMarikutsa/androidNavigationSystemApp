@@ -5,6 +5,11 @@ public class Event {
     private long id;
     private String type;
 
+    public Event(long id, String type) {
+        this.id = id;
+        this.type = type;
+    }
+
     public long getId() {
         return id;
     }
