@@ -7,9 +7,7 @@ import android.util.Log;
 import android.widget.ListView;
 import com.demo.navigationsysapp.app.R;
 import com.demo.navigationsysapp.app.activities.adapter.EventAdapter;
-import com.demo.navigationsysapp.app.activities.adapter.UserAdapter;
 import com.demo.navigationsysapp.app.activities.pojo.Event;
-import com.demo.navigationsysapp.app.activities.pojo.User;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,7 +35,6 @@ public class MainActivity extends ActionBarActivity {
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
         String resultJson = "";
-
         @Override
         protected String doInBackground(Void... params) {
             try {
@@ -77,6 +74,7 @@ public class MainActivity extends ActionBarActivity {
                 for (int i = 0; i < eventsJSON.length(); i++) {
                     JSONObject eventJSON = eventsJSON.getJSONObject(i);
                     Event event = new Event(eventJSON.getString("type"));
+                    event.setActorAvatar(eventJSON.getJSONObject("actor").getString("avatar_url"));
 //                    Log.d(LOG_TAG, "type: " + event.getType());
                     events.add(event);
                 }

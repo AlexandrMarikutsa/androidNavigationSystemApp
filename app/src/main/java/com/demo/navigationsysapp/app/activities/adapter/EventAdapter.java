@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.demo.navigationsysapp.app.R;
 import com.demo.navigationsysapp.app.activities.pojo.Event;
+import com.demo.navigationsysapp.app.activities.service.DownloadImageTask;
 
 import java.util.List;
 
@@ -40,11 +42,12 @@ public class EventAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if(view == null){
-            view = layoutInflater.inflate(R.layout.item_layout,parent,false);
+            view = layoutInflater.inflate(R.layout.mylist,parent,false);
         }
         Event event = getEvent(position);
-        TextView textView = (TextView) view.findViewById(R.id.textView);
+        TextView textView = (TextView) view.findViewById(R.id.Itemname);
         textView.setText(event.getType());
+        new DownloadImageTask((ImageView) view.findViewById(R.id.avatar)).execute(event.getActorAvatar());
         return view;
     }
 
