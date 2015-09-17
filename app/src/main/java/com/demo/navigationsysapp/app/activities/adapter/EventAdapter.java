@@ -45,8 +45,10 @@ public class EventAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.mylist,parent,false);
         }
         Event event = getEvent(position);
-        TextView textView = (TextView) view.findViewById(R.id.Itemname);
+        TextView textView = (TextView) view.findViewById(R.id.type);
         textView.setText(event.getType());
+        TextView textView1 = (TextView) view.findViewById(R.id.createdAt);
+        textView1.setText(event.getCreatedAt());
         new DownloadImageTask((ImageView) view.findViewById(R.id.avatar)).execute(event.getActorAvatar());
         return view;
     }

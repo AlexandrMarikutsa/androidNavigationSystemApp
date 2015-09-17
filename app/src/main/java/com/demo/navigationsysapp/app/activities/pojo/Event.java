@@ -5,6 +5,7 @@ public class Event {
     private long id;
     private String type;
     private String actorAvatar;
+    private String createdAt;
 
     public Event(String type) {
         this.type = type;
@@ -12,6 +13,14 @@ public class Event {
 
     public String getActorAvatar() {
         return actorAvatar;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setActorAvatar(String actorAvatar) {

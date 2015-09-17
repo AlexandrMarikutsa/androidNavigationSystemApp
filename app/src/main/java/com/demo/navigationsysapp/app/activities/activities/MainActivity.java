@@ -4,7 +4,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.demo.navigationsysapp.app.R;
 import com.demo.navigationsysapp.app.activities.adapter.EventAdapter;
 import com.demo.navigationsysapp.app.activities.pojo.Event;
@@ -29,6 +32,8 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         new ParseTask().execute();
+
+
     }
     private class ParseTask extends AsyncTask<Void, Void, String> {
 
@@ -70,17 +75,27 @@ public class MainActivity extends ActionBarActivity {
             try {
                 JSONArray eventsJSON = new JSONArray(strJson);
 
-                List<Event> events = new ArrayList<Event>();
+                final List<Event> events = new ArrayList<Event>();
                 for (int i = 0; i < eventsJSON.length(); i++) {
                     JSONObject eventJSON = eventsJSON.getJSONObject(i);
                     Event event = new Event(eventJSON.getString("type"));
                     event.setActorAvatar(eventJSON.getJSONObject("actor").getString("avatar_url"));
-//                    Log.d(LOG_TAG, "type: " + event.getType());
+                    event.setCreatedAt(eventJSON.getString("created_at"));
                     events.add(event);
                 }
                 listView = (ListView) findViewById(R.id.listView);
                 EventAdapter eventAdapter = new EventAdapter(getApplication(), events);
                 listView.setAdapter(eventAdapter);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view,
+                                            int position, long id) {
+                        String Selecteditem = events.get(+position).getType();
+                        Toast.makeText(getApplicationContext(), Selecteditem, Toast.LENGTH_SHORT).show();
+
+                    }
+                });
 
 
             } catch (JSONException e) {
