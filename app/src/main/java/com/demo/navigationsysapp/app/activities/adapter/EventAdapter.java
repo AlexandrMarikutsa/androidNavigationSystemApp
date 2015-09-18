@@ -2,6 +2,8 @@ package com.demo.navigationsysapp.app.activities.adapter;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +13,21 @@ import android.widget.TextView;
 import com.demo.navigationsysapp.app.R;
 import com.demo.navigationsysapp.app.activities.pojo.Event;
 import com.demo.navigationsysapp.app.activities.service.DownloadImageTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 public class EventAdapter extends BaseAdapter {
     private List<Event> events;
     private LayoutInflater layoutInflater;
+    private Context context;
 
     public EventAdapter(Context context, List<Event> events) {
         this.events = events;
+        this.context = context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -48,11 +56,11 @@ public class EventAdapter extends BaseAdapter {
         TextView textView = (TextView) view.findViewById(R.id.type);
         textView.setText(event.getType());
         TextView textView1 = (TextView) view.findViewById(R.id.createdAt);
-        textView1.setText(event.getCreatedAt());
-        new DownloadImageTask((ImageView) view.findViewById(R.id.avatar)).execute(event.getActorAvatar());
+        textView1.setText(event.getType() + ' ' + event.getCreatedAt());
+        ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
+        Picasso.with(context).load(event.getActorAvatar()).into(imageView);
         return view;
     }
-
     private Event getEvent(int position){
         return (Event) getItem(position);
     }
