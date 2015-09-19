@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.demo.navigationsysapp.app.R;
 import com.demo.navigationsysapp.app.activities.adapter.EventAdapter;
 import com.demo.navigationsysapp.app.activities.pojo.Event;
+import com.demo.navigationsysapp.app.activities.pojo.Repo;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,9 +81,8 @@ public class MainActivity extends ActionBarActivity {
                 for (int i = 0; i < eventsJSON.length(); i++) {
                     JSONObject eventJSON = eventsJSON.getJSONObject(i);
                     Event event = new Event(eventJSON.getString("type"));
-                    event.setEventImage(eventJSON.getJSONObject("repo").getString("url"));
-                    event.setEventName(eventJSON.getJSONObject("repo").getString("name"));
                     event.setCreatedAt(eventJSON.getString("created_at"));
+                    event.setRepo(new Repo(eventJSON.getJSONObject("repo").getString("name"),eventJSON.getJSONObject("repo").getString("url")));
                     events.add(event);
                 }
                 listView = (ListView) findViewById(R.id.listView);
@@ -94,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
                         Intent intent = new Intent(getApplication(), EventActivity.class);
-                        intent.putExtra("event",events.get(+position).getActorAvatar());
+                        intent.putExtra("event",events.get(+position).getRepo().getImageUrl());
                         startActivity(intent);
                     }
                 });

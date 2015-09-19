@@ -4,33 +4,23 @@ package com.demo.navigationsysapp.app.activities.pojo;
 public class Event {
     private long id;
     private String type;
-    private String actorAvatar;
     private String createdAt;
-    private String eventName;
-    private String eventImage;
+    private Repo repo;
 
-    public String getEventName() {
-        return eventName;
+    public Event(Repo repo) {
+        this.repo = repo;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public Repo getRepo() {
+        return repo;
     }
 
-    public String getEventImage() {
-        return eventImage;
-    }
-
-    public void setEventImage(String eventImage) {
-        this.eventImage = eventImage;
+    public void setRepo(Repo repo) {
+        this.repo = repo;
     }
 
     public Event(String type) {
         this.type = type;
-    }
-
-    public String getActorAvatar() {
-        return actorAvatar;
     }
 
     public String getCreatedAt() {
@@ -39,10 +29,6 @@ public class Event {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public void setActorAvatar(String actorAvatar) {
-        this.actorAvatar = actorAvatar;
     }
 
     public long getId() {

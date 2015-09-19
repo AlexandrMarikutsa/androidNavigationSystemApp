@@ -54,11 +54,11 @@ public class EventAdapter extends BaseAdapter {
         }
         Event event = getEvent(position);
         TextView textView = (TextView) view.findViewById(R.id.name);
-        textView.setText(event.getEventName());
+        textView.setText(event.getRepo().getName());
         TextView textView1 = (TextView) view.findViewById(R.id.createdAt);
         textView1.setText(event.getType() + ' ' + event.getCreatedAt());
         ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
-        Picasso.with(context).load(event.getEventImage()).into(imageView);
+        Picasso.with(context).load(event.getRepo().getImageUrl()).into(imageView);
         return view;
     }
     private Event getEvent(int position){
