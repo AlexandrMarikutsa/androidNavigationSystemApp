@@ -1,5 +1,6 @@
 package com.demo.navigationsysapp.app.activities.activities;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -79,7 +80,8 @@ public class MainActivity extends ActionBarActivity {
                 for (int i = 0; i < eventsJSON.length(); i++) {
                     JSONObject eventJSON = eventsJSON.getJSONObject(i);
                     Event event = new Event(eventJSON.getString("type"));
-                    event.setActorAvatar(eventJSON.getJSONObject("actor").getString("avatar_url"));
+                    event.setEventImage(eventJSON.getJSONObject("repo").getString("url"));
+                    event.setEventName(eventJSON.getJSONObject("repo").getString("name"));
                     event.setCreatedAt(eventJSON.getString("created_at"));
                     events.add(event);
                 }
@@ -91,13 +93,11 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
-                        String Selecteditem = events.get(+position).getType();
-                        Toast.makeText(getApplicationContext(), Selecteditem, Toast.LENGTH_SHORT).show();
-
+                        Intent intent = new Intent(getApplication(), EventActivity.class);
+                        intent.putExtra("event",events.get(+position).getActorAvatar());
+                        startActivity(intent);
                     }
                 });
-
-
             } catch (JSONException e) {
                 e.printStackTrace();
             }

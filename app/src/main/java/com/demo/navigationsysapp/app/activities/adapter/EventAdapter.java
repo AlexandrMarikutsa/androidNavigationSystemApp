@@ -53,12 +53,12 @@ public class EventAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.mylist,parent,false);
         }
         Event event = getEvent(position);
-        TextView textView = (TextView) view.findViewById(R.id.type);
-        textView.setText(event.getType());
+        TextView textView = (TextView) view.findViewById(R.id.name);
+        textView.setText(event.getEventName());
         TextView textView1 = (TextView) view.findViewById(R.id.createdAt);
         textView1.setText(event.getType() + ' ' + event.getCreatedAt());
         ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
-        Picasso.with(context).load(event.getActorAvatar()).into(imageView);
+        Picasso.with(context).load(event.getEventImage()).into(imageView);
         return view;
     }
     private Event getEvent(int position){

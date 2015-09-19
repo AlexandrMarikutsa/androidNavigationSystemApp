@@ -6,6 +6,24 @@ public class Event {
     private String type;
     private String actorAvatar;
     private String createdAt;
+    private String eventName;
+    private String eventImage;
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getEventImage() {
+        return eventImage;
+    }
+
+    public void setEventImage(String eventImage) {
+        this.eventImage = eventImage;
+    }
 
     public Event(String type) {
         this.type = type;
