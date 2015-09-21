@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 import com.demo.navigationsysapp.app.R;
 import com.demo.navigationsysapp.app.activities.adapter.EventAdapter;
 import com.demo.navigationsysapp.app.activities.pojo.Event;
@@ -28,6 +27,9 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity {
     public static String LOG_TAG = "my_log";
     private ListView listView;
+    HttpURLConnection urlConnection = null;
+    BufferedReader reader = null;
+    String resultJson = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,6 @@ public class MainActivity extends ActionBarActivity {
 
     }
     private class ParseTask extends AsyncTask<Void, Void, String> {
-
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-        String resultJson = "";
         @Override
         protected String doInBackground(Void... params) {
             try {
@@ -82,7 +80,8 @@ public class MainActivity extends ActionBarActivity {
                     JSONObject eventJSON = eventsJSON.getJSONObject(i);
                     Event event = new Event(eventJSON.getString("type"));
                     event.setCreatedAt(eventJSON.getString("created_at"));
-                    event.setRepo(new Repo(eventJSON.getJSONObject("repo").getString("name"),eventJSON.getJSONObject("repo").getString("url")));
+                    String urlImage = eventJSON.getJSONObject("repo").getString("url");
+                    event.setRepo(new Repo(eventJSON.getJSONObject("repo").getString("name"), urlImage));
                     events.add(event);
                 }
                 listView = (ListView) findViewById(R.id.listView);

@@ -2,8 +2,6 @@ package com.demo.navigationsysapp.app.activities.adapter;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.demo.navigationsysapp.app.R;
 import com.demo.navigationsysapp.app.activities.pojo.Event;
-import com.demo.navigationsysapp.app.activities.service.DownloadImageTask;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
 public class EventAdapter extends BaseAdapter {
