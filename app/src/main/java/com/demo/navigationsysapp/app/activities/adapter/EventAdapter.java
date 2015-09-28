@@ -25,13 +25,19 @@ public class EventAdapter extends BaseAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    static class ViewHolder {
+        TextView eventName;
+        TextView eventCreatedAt;
+        ImageView eventAvatar;
+    }
+
     @Override
     public int getCount() {
         return events.size();
     }
 
     @Override
-    public Object getItem(int position) {
+    public Event getItem(int position) {
         return events.get(position);
     }
 
@@ -42,20 +48,28 @@ public class EventAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if(view == null){
-            view = layoutInflater.inflate(R.layout.mylist,parent,false);
+        ViewHolder viewHolder;
+        if(convertView == null){
+
+            convertView = layoutInflater.inflate(R.layout.mylist,parent,false);
+
+            viewHolder = new ViewHolder();
+            viewHolder.eventName = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.eventCreatedAt = (TextView) convertView.findViewById(R.id.createdAt);
+            viewHolder.eventAvatar = (ImageView) convertView.findViewById(R.id.avatar);
+
+            convertView.setTag(viewHolder);
+        }else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        Event event = getEvent(position);
-        TextView textView = (TextView) view.findViewById(R.id.name);
-        textView.setText(event.getRepo().getName());
-        TextView textView1 = (TextView) view.findViewById(R.id.createdAt);
-        textView1.setText(event.getType() + ' ' + event.getCreatedAt());
-        ImageView imageView = (ImageView) view.findViewById(R.id.avatar);
-        Picasso.with(context).load(event.getRepo().getImageUrl()).into(imageView);
-        return view;
+
+        Event event =  getItem(position);
+
+        viewHolder.eventName.setText(event.getRepo().getName());
+        viewHolder.eventCreatedAt.setText(event.getType() + ' ' + event.getCreatedAt());
+        Picasso.with(context).load(event.getRepo().getImageUrl()).into(viewHolder.eventAvatar);
+
+        return convertView;
     }
-    private Event getEvent(int position){
-        return (Event) getItem(position);
-    }
+
 }

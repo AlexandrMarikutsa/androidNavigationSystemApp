@@ -24,6 +24,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class MainActivity extends ActionBarActivity {
     public static String LOG_TAG = "my_log";
     private ListView listView;
@@ -78,10 +80,10 @@ public class MainActivity extends ActionBarActivity {
                 final List<Event> events = new ArrayList<Event>();
                 for (int i = 0; i < eventsJSON.length(); i++) {
                     JSONObject eventJSON = eventsJSON.getJSONObject(i);
-                    Event event = new Event(eventJSON.getString("type"));
-                    event.setCreatedAt(eventJSON.getString("created_at"));
-                    String urlImage = eventJSON.getJSONObject("repo").getString("url");
-                    event.setRepo(new Repo(eventJSON.getJSONObject("repo").getString("name"), urlImage));
+                    Event event = new Event(eventJSON.getString(Event.TYPE));
+                    event.setCreatedAt(eventJSON.getString(Event.CREATED_AT));
+                    String urlImage = eventJSON.getJSONObject(Event.REPO).getString(Repo.URL);
+                    event.setRepo(new Repo(eventJSON.getJSONObject(Event.REPO).getString(Repo.NAME), urlImage));
                     events.add(event);
                 }
                 listView = (ListView) findViewById(R.id.listView);
@@ -93,7 +95,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onItemClick(AdapterView<?> parent, View view,
                                             int position, long id) {
                         Intent intent = new Intent(getApplication(), EventActivity.class);
-                        intent.putExtra("event",events.get(+position).getRepo().getImageUrl());
+                        intent.putExtra(EventActivity.EVENT_KEY,events.get(+position).getRepo().getImageUrl());
                         startActivity(intent);
                     }
                 });

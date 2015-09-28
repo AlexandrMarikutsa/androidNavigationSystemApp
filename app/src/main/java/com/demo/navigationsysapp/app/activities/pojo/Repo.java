@@ -10,6 +10,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Repo {
+    public static String URL = "url";
+    public static String NAME = "name";
+
+
     private String name;
     private String imageUrl;
     private String repoUrl = null;

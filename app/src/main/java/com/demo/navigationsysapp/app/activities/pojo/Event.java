@@ -2,6 +2,11 @@ package com.demo.navigationsysapp.app.activities.pojo;
 
 
 public class Event {
+    public static String TYPE = "type";
+    public static String CREATED_AT = "created_at";
+    public static String REPO = "repo";
+
+
     private long id;
     private String type;
     private String createdAt;

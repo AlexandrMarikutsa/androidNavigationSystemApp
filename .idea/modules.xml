@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/NavigationSysApp.iml" filepath="$PROJECT_DIR$/NavigationSysApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidNavigationSystemApp.iml" filepath="$PROJECT_DIR$/androidNavigationSystemApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -10,6 +10,9 @@ import com.squareup.picasso.Picasso;
 
 public class EventActivity extends Activity{
 
+    public static final String EVENT_KEY = "event_key";
+
+
     private ImageView event;
 
     @Override
@@ -17,7 +20,8 @@ public class EventActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_view);
         event = (ImageView) findViewById(R.id.event);
-        Picasso.with(this).load(getIntent().getStringExtra("event")).into(event);
+        Picasso.with(this).load(getIntent().getStringExtra(EVENT_KEY)).into(event);
+
     }
 
     public void onClick(View view){
